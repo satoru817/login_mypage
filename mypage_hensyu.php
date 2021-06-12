@@ -4,6 +4,11 @@ mb_internal_encoding("utf8");
 //セッションスタート
 session_start();
 
+//mypage.php以外からの導線はlogin_error.phpへリダイレクト
+if(empty($_POST['from_mypage'])){
+    header("Location:login_error.php");
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -27,6 +32,7 @@ session_start();
         <br>
         <textarea name="comments" ><?php echo $_SESSION['comments'];?></textarea>
         <br>
+        <input type="hidden" name="from_hensyu" value="1">
         <input type="submit" value="この内容に変更する">
         </form>
 

@@ -1,15 +1,19 @@
 ﻿<?php
+require "DB.php";
 mb_internal_encoding("utf8");
 
 try{
 //DB接続
-$pdo=new PDO("mysql:dbname=lesson01;host=localhost;","root","");
+// $pdo=new PDO("mysql:dbname=lesson01;host=localhost;","root","");
+$dbconnect=new DB();
+$pdo=$dbconnect->connect();
 }catch(PDOException $e){
     die();
 }
 
 //プリペアドステートメントでSQL文の型を作る
-$stmt=$pdo->prepare("insert into login_mypage(name,mail,password,picture,comments)values(?,?,?,?,?)");
+// $stmt=$pdo->prepare("insert into login_mypage(name,mail,password,picture,comments)values(?,?,?,?,?)");
+$stmt=$pdo->prepare($dbconnect->insert());
 
 //bindvalueを使用し、実際に各カラムに何をするか記述
 $stmt->bindValue(1,$_POST['name']);
